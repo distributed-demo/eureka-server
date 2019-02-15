@@ -29,9 +29,26 @@ bank-server -> company-server -> user-server
 
 ### 3.角色转换
 一个provider转变为consumer时，会涉及到调用其他服务，feign调用时，这个api接口所在包，需要显式的配置扫描。
+
 比如，我feign包下，有个UserServiceApi，里面是comsumer调用provider的api接口，那需要在consumer项目中配置：
 
 @EnableFeignClients("com.java4all.feign")
 
+### 4.涉及变量传递
+参考0.1版本
+#### 1.自行处理
+由于tcc的每一个阶段，使用的参数是相同的，
+try中如果对接口参数做了任何处理，那么在cc阶段，也需要做相同的处理。
+比如，controller中，方法中拿到参数后做了处理，然后去调用的try的实现，
+那么这个处理，必须也同步在confirm和cancel中。
 
+此种方式，比较原始，建议在框架层面来处理。
+
+#### 2.框架处理
+借助CompensableContextAware，CompensableContext，
+在try阶段，把处理后的值存入上下文中，cc阶段直接获取使用即可。
+
+set value参考：https://github.com/distributed-demo/company-server/blob/0.1/src/main/java/com/java4all/service/impl/CompanyServiceImpl.java
+
+get value参考：https://github.com/distributed-demo/company-server/blob/0.1/src/main/java/com/java4all/service/impl/CompanyServiceConfirm.java
 
