@@ -11,3 +11,6 @@ eureka:
     fetch-registry: false
     service-url:
       defaultZone:  http://${eureka.instance.hostname}:${server.port}/eureka/
+  server:
+    enable-self-preservation: false
+# 默认情况下，eureka间隔60s将服务清单中没有续约的服务剔除（默认90s内没有续约），本地测试，关闭保护机制，直接让它实时剔除
