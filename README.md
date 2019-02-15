@@ -52,3 +52,16 @@ set value参考：https://github.com/distributed-demo/company-server/blob/0.1/sr
 
 get value参考：https://github.com/distributed-demo/company-server/blob/0.1/src/main/java/com/java4all/service/impl/CompanyServiceConfirm.java
 
+### 5.负载粒度
+ByteTCC计划对负载均衡的支持粒度，可分为两种：a、按事务进行负载均衡；b、按请求进行负载均衡。
+#### 1.按事务进行负载均衡
+在某个事务T内，consumer端应用app1首次向provider端应用app2（集群环境）发起请求时，
+ByteTCC使用random负载均衡策略将其随机分发到一个app2实例（如inst2）；
+
+后续app1在该事务T内再次向app2发起请求时，将始终落在inst2（即首次请求的处理实例）上。
+#### 2.按请求进行负载均衡
+consumer端应用app1向provider端应用app2（集群环境）发起请求时，
+ByteTCC始终按业务系统指定的负载均衡策略将请求分发到一个app2实例。
+
+
+##### 其他信息可参考文档：https://github.com/liuyangming/ByteTCC/wiki/User-Guide-0.5.x
