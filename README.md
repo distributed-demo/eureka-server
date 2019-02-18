@@ -72,4 +72,34 @@ ByteTCC始终按业务系统指定的负载均衡策略将请求分发到一个a
 - user-server
 
 eureka-server,eureka-server2为一个eureka集群，其他服务注册到eureka-server上。
-##### 其他信息可参考文档：https://github.com/liuyangming/ByteTCC/wiki/User-Guide-0.5.x
+
+### 7.0.3版本
+有如下5个服务：
+- eureka-server 8761
+- eureka-server2 8762
+- bank-server
+- company-server
+- user-server
+
+eureka-server,eureka-server2为一个eureka集群，其他服务注册到eureka-server上。
+
+### 8.版本对应
+1.demo的master，0.1，0.2本版对应的版本号：
+
+byteTCC 0.5.x
+
+Springboot 2.1.2.RELEASE
+
+SpringCloud Greenwich.RELEASE
+
+
+2.demo的0.3本版对应的版本号：
+
+byteTCC 0.4.x
+
+Springboot 1.5.4.RELEASE
+
+SpringCloud Edgware.SR4
+
+请提前搞清公司项目的Springboot和Springcloud版本，选择对应的byteTCC版本。
+### 其他信息可参考文档：https://github.com/liuyangming/ByteTCC/wiki/User-Guide-0.5.x
