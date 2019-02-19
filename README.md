@@ -1,11 +1,13 @@
 # eureka-server
 
-### 1.master版本
+##### 此demo有多项目，多分支，请根据场景，拉取对应项目的对应分支demo测试。
+
+### 1.master分支
 有如下4个服务：
-- eureka-server
-- bank-server
-- company-server
-- user-server
+- eureka-server             branch master
+- bank-server               branch master
+- company-server            branch master
+- user-server               branch master
 
 此版本演示了2种场景：
 #### 1.consumer -> provider
@@ -13,12 +15,12 @@ bank-server -> user-server
 #### 2.consumer -> provider1，provider2
 bank-server -> user-server,company-server
 
-### 2.0.1版本
+### 2.0.1分支
 有如下4个服务：
-- eureka-server
-- bank-server
-- company-server
-- user-server
+- eureka-server             branch 0.1
+- bank-server               branch 0.1
+- company-server            branch 0.1
+- user-server               branch 0.1
 
 此版本演示了1种场景：
 #### 1.consumer -> provider1->provider2
@@ -26,15 +28,57 @@ bank-server -> company-server -> user-server
 
 此场景下，company-server在链路中，不仅是provider，也是consumer。
 
+### 3.0.2分支
+有如下5个服务：
+- eureka-server 8761        branch 0.2
+- eureka-server2 8762       branch 0.2
+- bank-server               branch 0.2
+- company-server            branch 0.2
+- user-server               branch 0.2
 
-### 3.角色转换
+eureka-server,eureka-server2为一个eureka集群，其他服务注册到eureka-server上。
+
+### 4.版本0.4
+有如下4个服务：
+- eureka-server 8761        branch 0.2
+- eureka-server2 8762       branch 0.2
+- bank4                     branch master
+- user4                     branch master
+
+eureka-server,eureka-server2为一个eureka集群，其他服务注册到eureka-server上。
+此版本演示了1种场景：
+#### 1.consumer -> provider
+bank4 -> user4
+
+此版本的存在，是为了演示在byteTCC 0.4.x版本。
+
+### 5.版本号对应
+#### 1.demo的master分支，0.1分支，0.2分支，对应的版本号：
+
+- byteTCC 0.5.x
+
+- Springboot 2.1.2.RELEASE
+
+- SpringCloud Greenwich.RELEASE
+
+#### 2.版本0.4对应的版本号：
+
+- byteTCC 0.4.x
+
+- Springboot 1.5.4.RELEASE
+
+- SpringCloud Edgware.SR4
+
+由于0.4.x版本，和0.5.x版本，整合方式相差较大，个人认为，0.4.x版本不太友好，请提前搞清自己项目的Springboot和Springcloud版本，选择对应的byteTCC版本。
+
+### 6.角色转换
 一个provider转变为consumer时，会涉及到调用其他服务，feign调用时，这个api接口所在包，需要显式的配置扫描。
 
 比如，我feign包下，有个UserServiceApi，里面是comsumer调用provider的api接口，那需要在consumer项目中配置：
 
 @EnableFeignClients("com.java4all.feign")
 
-### 4.涉及变量传递
+### 7.涉及变量传递
 参考0.1版本
 #### 1.自行处理
 由于tcc的每一个阶段，使用的参数是相同的，
@@ -52,8 +96,10 @@ set value参考：https://github.com/distributed-demo/company-server/blob/0.1/sr
 
 get value参考：https://github.com/distributed-demo/company-server/blob/0.1/src/main/java/com/java4all/service/impl/CompanyServiceConfirm.java
 
-### 5.负载粒度
-ByteTCC计划对负载均衡的支持粒度，可分为两种：a、按事务进行负载均衡；b、按请求进行负载均衡。
+### 8.负载粒度
+ByteTCC计划对负载均衡的支持粒度，可分为两种：
+- a、按事务进行负载均衡；
+- b、按请求进行负载均衡。
 #### 1.按事务进行负载均衡
 在某个事务T内，consumer端应用app1首次向provider端应用app2（集群环境）发起请求时，
 ByteTCC使用random负载均衡策略将其随机分发到一个app2实例（如inst2）；
@@ -63,43 +109,23 @@ ByteTCC使用random负载均衡策略将其随机分发到一个app2实例（如
 consumer端应用app1向provider端应用app2（集群环境）发起请求时，
 ByteTCC始终按业务系统指定的负载均衡策略将请求分发到一个app2实例。
 
-### 6.0.2版本
-有如下5个服务：
-- eureka-server 8761
-- eureka-server2 8762
-- bank-server
-- company-server
-- user-server
+### 可参考文档：
 
-eureka-server,eureka-server2为一个eureka集群，其他服务注册到eureka-server上。
+##### byteTCC地址
+https://github.com/liuyangming/ByteTCC
 
-### 7.0.3版本
-有如下5个服务：
-- eureka-server 8761
-- eureka-server2 8762
-- bank-server
-- company-server
-- user-server
+##### byteTCC官方手册
+https://github.com/liuyangming/ByteTCC/wiki/User-Guide-0.5.x
 
-eureka-server,eureka-server2为一个eureka集群，其他服务注册到eureka-server上。
+https://github.com/liuyangming/ByteTCC/wiki/User-Guide-0.4.x
 
-### 8.版本对应
-1.demo的master，0.1，0.2本版对应的版本号：
+##### byteTCC官方样例
+https://github.com/liuyangming/ByteTCC-sample
 
-byteTCC 0.5.x
+##### 上述文档中整合样例
+https://github.com/distributed-demo
 
-Springboot 2.1.2.RELEASE
-
-SpringCloud Greenwich.RELEASE
+##### 相关博客
+https://blog.csdn.net/weixin_39800144/column/info/30988
 
 
-2.demo的0.3本版对应的版本号：
-
-byteTCC 0.4.x
-
-Springboot 1.5.4.RELEASE
-
-SpringCloud Edgware.SR4
-
-请提前搞清公司项目的Springboot和Springcloud版本，选择对应的byteTCC版本。
-### 其他信息可参考文档：https://github.com/liuyangming/ByteTCC/wiki/User-Guide-0.5.x
