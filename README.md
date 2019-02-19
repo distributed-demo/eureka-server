@@ -109,7 +109,7 @@ ByteTCC使用random负载均衡策略将其随机分发到一个app2实例（如
 consumer端应用app1向provider端应用app2（集群环境）发起请求时，
 ByteTCC始终按业务系统指定的负载均衡策略将请求分发到一个app2实例。
 
-### 可参考文档：
+### 9.可参考文档：
 
 ##### byteTCC地址
 https://github.com/liuyangming/ByteTCC
