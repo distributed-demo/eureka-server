@@ -109,6 +109,8 @@ ByteTCC使用random负载均衡策略将其随机分发到一个app2实例（如
 consumer端应用app1向provider端应用app2（集群环境）发起请求时，
 ByteTCC始终按业务系统指定的负载均衡策略将请求分发到一个app2实例。
 
+注意：ByteTCC 0.4.x版本默认为支持“按事务进行负载均衡”的特性。
+
 ### 9.幂等性
 ByteTCC不要求service的实现逻辑具有幂等性，ByteTCC在TCC事务提交/回滚时，虽然也可能会多次调用confirm/cancel方法，但是ByteTCC可以确保每个confirm/cancel方法仅被"执行并提交"一次。所以，在使用ByteTCC时可以仅关注业务逻辑，而不必考虑事务相关的细节。
 
