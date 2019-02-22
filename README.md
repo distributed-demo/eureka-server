@@ -109,7 +109,14 @@ ByteTCC使用random负载均衡策略将其随机分发到一个app2实例（如
 consumer端应用app1向provider端应用app2（集群环境）发起请求时，
 ByteTCC始终按业务系统指定的负载均衡策略将请求分发到一个app2实例。
 
-### 9.可参考文档：
+### 9.幂等性
+ByteTCC不要求service的实现逻辑具有幂等性，ByteTCC在TCC事务提交/回滚时，虽然也可能会多次调用confirm/cancel方法，但是ByteTCC可以确保每个confirm/cancel方法仅被"执行并提交"一次。所以，在使用ByteTCC时可以仅关注业务逻辑，而不必考虑事务相关的细节。
+
+1.Confirm操作虽然可能被多次调用，但是其参与的LocalTransaction均由ByteTCC事务管理器控制，一旦Confirm操作所在的LocalTransaction事务被ByteTCC事务管理器成功提交，则ByteTCC事务管理器会标注该Confirm操作成功，后续将不再执行该Confirm操作。
+
+2.Cancel操作的控制原理同Confirm操作。需要说明的是，Cancel操作只有在Try阶段所在的LocalTransaction被成功提交的情况下才会被调用，Try阶段所在的LocalTransaction被回滚时Cancel操作不会被执行。
+
+### 10.可参考文档：
 
 ##### byteTCC地址
 https://github.com/liuyangming/ByteTCC
