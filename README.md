@@ -136,3 +136,6 @@ https://github.com/distributed-demo
 
 ##### 相关博客
 https://blog.csdn.net/weixin_39800144/column/info/30988
+
+- Wechat:1186355422
+- blog:https://it4all.blog.csdn.net
