@@ -118,7 +118,10 @@ ByteTCC不要求service的实现逻辑具有幂等性，ByteTCC在TCC事务提�
 
 2.Cancel操作的控制原理同Confirm操作。需要说明的是，Cancel操作只有在Try阶段所在的LocalTransaction被成功提交的情况下才会被调用，Try阶段所在的LocalTransaction被回滚时Cancel操作不会被执行。
 
-### 10.可参考文档：
+### 10.调用成环
+有关这个场景，此项目未作测试，贴一下作者对此问题的看法：
+一般来讲两个服务互相依赖（或者，调用链路中存在环）不是一个很好的设计，不过ByteTCC也允许这种情况，但是如果这个调用环中还存在修改同一条记录的情况，这个ByteTCC就解决不了了。只能改一下业务设计了，比如异步？或者要不就把第二次修改放到confirm中执行，因为执行confirm的时候，一般而言，try基本上都已经commit了。
+### 11.可参考文档：
 
 ##### byteTCC地址
 https://github.com/liuyangming/ByteTCC
